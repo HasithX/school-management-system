@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>add preod</title>
+</head>
+<body>
+    <div>
+        <form action="loging.php" method="post">
+
+            <label for="date">Date : </label>
+            <select name="date" id="date">
+                <option value="monday">monday</option>
+                <option value="tusday">tusday</option>
+                <option value="wendsday">wendsday</option>
+                <option value="thersday">thersday</option>
+                <option value="friday">friday</option>
+            </select>
+
+            <label for="preod">preod : </label>
+            <select name="preod" id="preod">
+                <option value="preod - 1"> preod - 1 </option>
+                <option value="preod - 2"> preod - 2 </option>
+                <option value="preod - 3"> preod - 3 </option>
+                <option value="preod - 4"> preod - 4 </option>
+                <option value="preod - 5"> preod - 5 </option>
+                <option value="preod - 6"> preod - 6 </option>
+                <option value="preod - 7"> preod - 7 </option>
+                <option value="preod - 8"> preod - 8 </option>
+            </select>
+
+            <label for="subject">subject : </label>
+            <select name="subject" id="subject">
+                <option value="ET"> ET </option>
+                <option value="SFT"> SFT </option>
+                <option value="ICT"> ICT </option>
+                <option value="BST"> BST </option>
+                <option value="AGRY"> AGRY </option>
+            </select>
+
+
+            <label for="class">Class : </label>
+            <select name="class" id="class">
+                <option value="12 - A"> 12 - A </option>
+                <option value="12 - B"> 12 - B </option>
+                <option value="12 - C"> 12 - C </option>
+                <option value="13 - A"> 13 - A </option>
+                <option value="13 - B"> 13 - B </option>
+                <option value="13 - C"> 13 - C </option>
+            </select>
+
+            <!-- need to show  curently teachers list here -->
+            <select name="teachers" id="teachers">
+                <?php
+                <option value="#"></option>
+                ?>
+            </select>
+
+            <input type="submit" value="Add">
+            <input type="reset" value="Cancel">
+        </form>
+    </div>
+</body>
+</html>

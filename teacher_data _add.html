@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>add teachers</title>
+</head>
+<body>
+    <div>
+        <form action="login.php" method="post">
+
+            <label for="id">ID : </label>
+            <input type="text" name="id" placeholder="Hasitha">
+
+
+            <label for="name">Name : </label>
+            <input type="text" name="name" placeholder="Hasitha">
+
+            <label for="subject">subject : </label>
+            <select name="subject" id="subject">
+                <option value="ET"> ET </option>
+                <option value="SFT"> SFT </option>
+                <option value="ICT"> ICT </option>
+                <option value="BST"> BST </option>
+                <option value="AGRY"> AGRY </option>
+            </select>
+
+
+            <label for="dob">Birth day : </label>
+            <input type="date" name="dob" id="dob">
+
+            <label for="tp">Tele : </label>
+            <input type="number" name="tp" max="12" min="10" placeholder="077xxx">
+
+            <input type="submit" value="Add">
+            <input type="reset" value="Cancel">
+        </form>
+    </div>
+</body>
+</html>
