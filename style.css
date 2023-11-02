@@ -198,6 +198,10 @@ tr{
     background-color: rgb(31, 24, 24);
   }
 
+.data_edit_colum{
+    width: 20px;
+}
+
 .data_control_center{
     width: 60em;
     display: flex;
@@ -222,7 +226,7 @@ tr{
     cursor: pointer;
   }
 
-  .add_button:hover{
+.add_button:hover{
     background-color: #393838;
   }
 

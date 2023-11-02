@@ -1,14 +1,12 @@
 
 
-
-
 $(document).ready(function(){
 
     //------------------data loding here------------\
 
     $.post("search.php",
     {
-        timetable_data:""
+        timetable_name:""
     },
     function(data, status){
     $("#table1").html(data);
@@ -24,7 +22,7 @@ $(document).ready(function(){
 
     $.post("search.php",
     {
-        student_data:""
+        student_name:""
     },
     function(data, status){
     $("#table3").html(data);
@@ -32,21 +30,20 @@ $(document).ready(function(){
 
     
 
-
     //-----------search data here----------\
 
     //timetable
-    // $("#search1").keyup(function(){
-    //     var timename = $("#search1").val();
-    //     $.post('search.php',
-    //     {
-    //         timetable_name : timename,
+    $("#search1").keyup(function(){
+        var timename = $("#search1").val();
+        $.post('search.php',
+        {
+            timetable_name : timename,
             
-    //     }, 
-    //     function(data,status){
-    //         $("#table1").html(data);
-    //     });
-    // });
+        }, 
+        function(data,status){
+            $("#table1").html(data);
+        });
+    });
 
     //teachers
     $("#search2").keyup(function(){
@@ -66,7 +63,7 @@ $(document).ready(function(){
         var stname =$("#search3").val();
         $.post("search.php",
         {
-            student_data : stname,
+            student_name : stname,
 
         },
         function(data, status){
@@ -74,12 +71,10 @@ $(document).ready(function(){
         });
     });
 
+    //---------add data here-------------\
+    
 });
 
-
-var popup = document.getElementById("T_popup");
-var btn = document.getElementById("loginBtn");
-var span = document.getElementsByClassName("close")[0];
 
 function popup(point){
     if (point == 'tt_popup') {
@@ -98,7 +93,7 @@ function popdown(point){
         document.getElementById('tt_popup').style.display = "none";
     }
     if (point == 'T_popup') {
-        document.getElementById('T_popup').style.display = "nonw";
+        document.getElementById('T_popup').style.display = "none";
     }
     if (point == 'S_popup') {
         document.getElementById('S_popup').style.display = "none";
