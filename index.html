@@ -5,64 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>School Management System</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="form.css">
+    <script src="main.js"></script>
     <script src="ajax.js"></script>
-    <script>
-        $(document).ready(function(){
-
-            //----------data loding here-------------\
-
-            $.post("search.php",
-            {
-                teacher_name:""
-            },
-            function(data, status){
-            $("#table").html(data);
-            });
-
-
-            //-----------search data here----------\
-
-            //timetable
-            // $("#search1").keyup(function(){
-            //     var timename = $("#search1").val();
-            //     $.post('search.php',
-            //     {
-            //         timetable_name : timename,
-                    
-            //     }, 
-            //     function(data,status){
-            //         $("#table1").html(data);
-            //     });
-            // });
-
-            //teachers
-            $("#search2").keyup(function(){
-                var tname =$("#search2").val();
-                $.post("search.php",
-                {
-                    teacher_name : tname,
- 
-                },
-                function(data, status){
-                    $("#table2").html(data);
-                });
-            });
-
-            //students
-            // $("#search3").keyup(function(){
-            //     var stname =$("#search3").val();
-            //     $.post("search.php",
-            //     {
-            //         student_name : stname,
- 
-            //     },
-            //     function(data, status){
-            //         $("#table3").html(data);
-            //     });
-            // });
-
-        });
-    </script>
+   
     <style>
         td{
             background-color: white;
@@ -84,13 +30,81 @@
     <section id="timetable">
         <h2>Timetable</h2>
 
-        <div id="search-form">
-            <input type="text"   id="search1" class ="search_box" name="search" placeholder="Search names..">
-            <button type="submit">Search</button>
+        <!-- timetable search -->
+        <div class="data_control_center">
+          <div id="search-form">
+            <input required type="search"   id="search1" class ="search_box" name="search" placeholder="Search names..">
+            <button type="button">Search</button>
+          </div>
+          <p class="add_button" onclick="popup('tt_popup')">Add+</p>
         </div>
 
+        <!-- timetable form -->
+        
+        <div class="popup_form" id="tt_popup">
+            <form >
+                <div class="form_head">
+                    <span class="close" onclick="popdown('tt_popup')">×</span>
+                    <h2>Time table..</h2>
+                </div>
+    
+                <label for="date">Date : </label>
+                <select name="date" id="tt_date">
+                    <option value="monday">monday</option>
+                    <option value="tusday">tusday</option>
+                    <option value="wendsday">wendsday</option>
+                    <option value="thersday">thersday</option>
+                    <option value="friday">friday</option>
+                </select>
+    
+                <label for="preod">preod : </label>
+                <select name="preod" id="tt_preod">
+                    <option value="preod1"> preod - 1 </option>
+                    <option value="preod2"> preod - 2 </option>
+                    <option value="preod3"> preod - 3 </option>
+                    <option value="preod4"> preod - 4 </option>
+                    <option value="preod5"> preod - 5 </option>
+                    <option value="preod6"> preod - 6 </option>
+                    <option value="preod7"> preod - 7 </option>
+                    <option value="preod8"> preod - 8 </option>
+                </select>
+    
+                <label for="subject">subject : </label>
+                <select name="subject" id="tt_subject">
+                    <option value="sub1"> ET </option>
+                    <option value="sub2"> SFT </option>
+                    <option value="sub3"> ICT </option>
+                    <option value="sub4"> BST </option>
+                    <option value="sub5"> AGRY </option>
+                </select>
+    
+    
+    
+                <label for="class">Class : </label>
+                <select name="class" id="tt_class">
+                    <option value="12 - A"> 12 - A </option>
+                    <option value="12 - B"> 12 - B </option>
+                    <option value="12 - C"> 12 - C </option>
+                    <option value="13 - A"> 13 - A </option>
+                    <option value="13 - B"> 13 - B </option>
+                    <option value="13 - C"> 13 - C </option>
+                </select>
+    
+                <!-- need to show  curently teachers list here -->
+                <select name="teachers" id="tt_teachers">
+                    <option value="#"></option>
+                
+                </select>
+    
+                <input type="submit" value="Add">
+                <input type="reset" value="Cancel">
+            </form>
+        </div>
+
+        <!-- timetable -->
         <table border="3" id="table1">
             <tr>
+                <th>ID</th>
                 <th>Time</th>
                 <th>Class</th>
                 <th>Subject</th>
@@ -99,19 +113,62 @@
             
         </table>
     </section>
-    <!-- teachers data-->
 
+
+    <!-------------------------------- teachers data---------------------------------->
 
 
     <section id="teachers">
         <h2>Teacher Details</h2>
 
-        <div id="search-form">
-            <input type="search"  id="search2" class ="search_box"
-             placeholder="Searchs..">
-             <button type="submit">Search</button>
-        </div>  
 
+        <!-- techers search -->
+        <div class="data_control_center">
+            <div id="search-form">
+                <input required type="search"  id="search2" class ="search_box"
+                 placeholder="Searchs..">
+                 <button type="button">Search</button>
+            </div>
+            <p class="add_button" onclick="popup('T_popup')">Add+</p>
+          </div>
+
+          <!-- techers form -->
+          <div class="popup_form" id="T_popup">
+            <form>
+                <div class="form_head">
+                    <span class="close" onclick="popdown('T_popup')">×</span>
+                    <h2>Teacher deta..</h2>
+                </div>
+                
+                <label for="id">ID : </label>
+                <input required type="text" name="id" placeholder="T - ID" id="T_id">
+    
+    
+                <label for="name">Name : </label>
+                <input required type="text" name="name" placeholder="T.B. Silva" id="T_name">
+    
+                <label for="subject">subject : </label>
+                <select name="subject" id="T_subject">
+                    <option value="sub1"> ET </option>
+                    <option value="sub2"> SFT </option>
+                    <option value="sub3"> ICT </option>
+                    <option value="sub4"> BST </option>
+                    <option value="sub5"> AGRY </option>
+                </select>
+    
+    
+                <label for="dob">Birth day : </label>
+                <input required type="date" name="dob" id="T_dob">
+    
+                <label for="tp">Tele : </label>
+                <input required type="number" name="tp" maxlength="10" placeholder="077xxxxxxx" id="T_tp">
+    
+                <input required type="submit" value="Add">
+                <input required type="reset" value="Cancel" >
+            </form>
+        </div>
+          
+          <!-- techers table -->
         <table border="3" id="table2">
             <tr>
                 <th>T_ID</th>
@@ -125,26 +182,72 @@
     </section>
 
 
-    <!-- student data -->
+    <!------------------- student data --------------------->
     <section id="students">
         <h2>Student Detail</h2>
 
-        <form id="search-form">
-            <input type="text" id="search3" class ="search_box" name="search" placeholder="Search for names..">
+        <!-- student search -->
+        <div class="data_control_center">
+        <div id="search-form">
+            <input required type="search" id="search3" class ="search_box" name="search" placeholder="Search for names..">
             <button type="submit">Search</button>
-          </form>
-        
+        </div>
+            <p class="add_button" onclick="popup('S_popup')">Add+</p>
+          </div>
+
+          <!-- student form -->
+
+          <div class="popup_form" id="S_popup">
+            <form >
+                <div class="form_head">
+                    <span class="close" onclick="popdown('S_popup')">×</span>
+                    <h2>Student deta..</h2>
+                </div>
+
+                <label for="id">ID : </label>
+                <input required type="text" name="id" placeholder="S - ID" id="S_id">
+
+                <label for="name">Name : </label>
+                <input type="text" name="name" placeholder="Hasitha" id="S_name">
+    
+                <label for="city">City : </label>
+                <input type="text" name="city" placeholder="colombo" id="S_city">
+    
+                <label for="class">Class : </label>
+                <select name="class" id=" S_class">
+                    <option value="12A"> 12 - A </option>
+                    <option value="12B"> 12 - B </option>
+                    <option value="12C"> 12 - C </option>
+                    <option value="13A"> 13 - A </option>
+                    <option value="13B"> 13 - B </option>
+                    <option value="13C"> 13 - C </option>
+                </select>
+    
+                <label for="dob">Birth day : </label>
+                <input type="date" name="dob" id="S_dob">
+    
+                <label for="tp">Tele : </label>
+                <input type="number" maxlength="10" placeholder="077xxxxxxx" id="S_tp">
+    
+                <input type="submit" value="Add">
+                <input type="reset" value="Cancel">
+            </form>
+        </div>
+       
+        <!-- student table -->
         <table border="3" id="table3">
             <tr>
                 <th>Student_ID</th>
                 <th>Name</th>
                 <th>Class</th>
+                <th>City</th>
+                <th>Date of birth</th>
                 <th>phone No</th>
             </tr>
-            <tr></tr>
-            <tr></tr>
         </table>
     </section>
+
+
     <footer></footer>
 </body>
 </html>

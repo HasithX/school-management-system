@@ -1,13 +1,8 @@
 <?php
 
+//------------another function here-----------------\\
 
-
-// function getTimetable(timetable_search){
-
-// }
-
-function getTeacheres(){
-
+function dbconection(){
     $server = 'localhost';
     $user = 'root';
     $password = "";
@@ -19,11 +14,97 @@ function getTeacheres(){
 
     if (!$conn) {
         // die("conection faild : ". mysqli_connect_error());
-        die("conection faild : ". $conn -> connect_error);
-    } else{
-        echo "conect suc";
+        return die("conection faild : ". $conn -> connect_error);
+    } 
+
+    return $conn;
+};
+
+
+
+//-----------------------grt data----------------------\\
+function getTimetable(){
+    $conn = dbconection();
+
+    echo "<tr>";
+    echo "<th>T_ID</th>";
+    echo "<th>Name</th>";
+    echo "<th>Subject</th>";
+    echo "<th>BOD</th>";
+    echo "<th>Tele</th>";
+    echo "</tr>";
+
+    if (isset($_POST["teacher_name"])) {
+
+        $search = $_POST["teacher_name"];
+
+        if ($search ==! ''){
+
+          $sql = "SELECT teachers.T_ID, teachers.Name, subject.name as 'subject', teachers.dob as 'DOB', teachers.Tele 
+            FROM teachers join subject on teachers.subject = subject.sub_id WHERE teachers.Name 
+            LIKE '%$search%' ORDER BY cast(teachers.T_ID as int) ASC;";
+
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0){
+
+            while ($row = $result->fetch_assoc()) {
+
+               echo "<tr>";
+               echo "<td >".$row['T_ID']."</td>";
+               echo "<td >".$row['Name']."</td>";
+               echo "<td >".$row['subject']."</td>";
+               echo "<td >".$row['DOB']."</td>";
+               echo "<td >".$row['Tele']."</td>";
+               echo "</tr>";
+            }
+            
+
+        }  else{
+            echo "<tr>"."<td colspan = '5'>". "no data found". "</td>". "</tr>";
+     };
+        }  
+        
+        else {
+            $sql = "SELECT  teachers.T_ID ,teachers.Name , subject.name AS 'subject' , teachers.dob as DOB , 
+            teachers.Tele FROM teachers INNER JOIN subject ON teachers.subject = subject.sub_id ORDER BY cast( teachers.T_ID as int) ASC;
+            ";
+
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0){
+
+                while ($row = $result->fetch_assoc()) {
+
+                echo "<tr>";
+                echo "<td >".$row['T_ID']."</td>";
+                echo "<td >".$row['Name']."</td>";
+                echo "<td >".$row['subject']."</td>";
+                echo "<td >".$row['DOB']."</td>";
+                echo "<td >".$row['Tele']."</td>";
+                echo "</tr>";
+
+
+                }
+                else{
+                    echo "<tr>"."<td colspan = '5'>".'no data found'. "</td>". "</tr>";
+                };
+            
+        }else{
+            echo "<tr>"."<td colspan = '5'>". "no data found". "</td>". "</tr>";
+     };
+        
     };
-        // $search = $_POST['teacher_name']
+
+   };
+$conn-> close();
+
+};
+
+function getTeacheres(){
+
+    $conn = dbconection();
+        
         echo "<tr>";
         echo "<th>T_ID</th>";
         echo "<th>Name</th>";
@@ -84,26 +165,25 @@ function getTeacheres(){
 
 
                 }
-                // else{
-                //     echo "<tr>"."<td colspan = '5'>". "</td>". "</tr>";
-                // };
+                else{
+                    echo "<tr>"."<td colspan = '5'>".'no data found'. "</td>". "</tr>";
+                };
             
         }else{
             echo "<tr>"."<td colspan = '5'>". "no data found". "</td>". "</tr>";
      };
-
         
-
-        $conn-> close();
-        
-
     };
 
-};
+   };
+$conn-> close();
 };
 
+if (isset($_POST['teacher_name'])) {
+    getTeacheres();
+}
 
-getTeacheres()
+
 
 // function getStudent(){
 
