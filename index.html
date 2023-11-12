@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="form.css">
     <link rel="stylesheet" href="awsome.css">
+    <script src="jquery-3.7.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="ajax.js"></script>
     <script src="main.js"></script>
    
@@ -34,10 +36,10 @@
         <!-- timetable search -->
         <div class="data_control_center">
           <div id="search-form">
-            <input required type="search"   id="search1" class ="search_box" name="search" placeholder="Search names..">
+            <input required required type="search"   id="search1" class ="search_box" name="search" placeholder="Search names..">
             <button type="button">Search</button>
           </div>
-          <p class="add_button" onclick="popup('tt_popup')">Add+</p>
+          <!-- <p class="add_button" onclick="popup('tt_popup')">Add+</p> -->
         </div>
 
         <!-- timetable form -->
@@ -50,7 +52,7 @@
                 </div>
     
                 <label for="date">Date : </label>
-                <select name="date" id="tt_date">
+                <select required name="date" id="tt_date">
                     <option value="Monday">Monday</option>
                     <option value="Tuesday">Tuesday</option>
                     <option value="Wednesday">Wednesday</option>
@@ -59,7 +61,7 @@
                 </select>
     
                 <label for="period">period : </label>
-                <select name="period" id="tt_period">
+                <select required name="period" id="tt_period">
                     <option value="period1"> period - 1 </option>
                     <option value="period2"> period - 2 </option>
                     <option value="period3"> period - 3 </option>
@@ -71,7 +73,7 @@
                 </select>
     
                 <label for="subject">subject : </label>
-                <select name="subject" id="tt_subject">
+                <select required name="subject" id="tt_subject">
                     <option value="sub1"> ET </option>
                     <option value="sub2"> SFT </option>
                     <option value="sub3"> ICT </option>
@@ -82,25 +84,28 @@
     
     
                 <label for="class">Class : </label>
-                <select name="class" id="tt_class">
-                    <option value="12 - A"> 12 - A </option>
-                    <option value="12 - B"> 12 - B </option>
-                    <option value="12 - C"> 12 - C </option>
-                    <option value="13 - A"> 13 - A </option>
-                    <option value="13 - B"> 13 - B </option>
-                    <option value="13 - C"> 13 - C </option>
+                <select required name="class" id="tt_class">
+                    <option value="12A"> 12 - A </option>
+                    <option value="12B"> 12 - B </option>
+                    <option value="12C"> 12 - C </option>
+                    <option value="13A"> 13 - A </option>
+                    <option value="13B"> 13 - B </option>
+                    <option value="13C"> 13 - C </option>
                 </select>
     
                 <!-- need to show  curently teachers list here -->
-                <select name="teachers" id="tt_teachers">
+                <label for="teachers">Teacher : </label>
+                <select required name="teachers" id="tt_teachers">
                     <option value="#"></option>
                 
                 </select>
     
-                <input type="submit" value="Add">
-                <input type="reset" value="Cancel">
+                <input required type="button" value="Add" id="add_timetable">
+                <input required type="reset" value="Clear">
             </form>
         </div>
+
+        <p id="f_p1"></p>
 
         <!-- timetable -->
         <table border="3" id="table1">
@@ -126,7 +131,7 @@
         <!-- techers search -->
         <div class="data_control_center">
             <div id="search-form">
-                <input required type="search"  id="search2" class ="search_box"
+                <input required required type="search"  id="search2" class ="search_box"
                  placeholder="Searchs..">
                  <button type="button">Search</button>
             </div>
@@ -138,7 +143,7 @@
             <form>
                 <div class="form_head">
                     <span class="close" onclick="popdown('T_popup')">×</span>
-                    <h2>Teacher deta..</h2>
+                    <h2>Teacher deta..</h2>p
                 </div>
                 
                 <label for="id">ID : </label>
@@ -149,7 +154,7 @@
                 <input required type="text" name="name" placeholder="T.B. Silva" id="T_name">
     
                 <label for="subject">subject : </label>
-                <select name="subject" id="T_subject">
+                <select required name="subject" id="T_subject">
                     <option value="sub1"> ET </option>
                     <option value="sub2"> SFT </option>
                     <option value="sub3"> ICT </option>
@@ -162,13 +167,13 @@
                 <input required type="date" name="dob" id="T_dob">
     
                 <label for="tp">Tele : </label>
-                <input required type="number" name="tp" maxlength="10" placeholder="077xxxxxxx" id="T_tp">
+                <input required type="text" name="tp" maxlength="10" placeholder="077xxxxxxx" id="T_tp">
     
-                <input required type="submit" value="Add">
-                <input required type="reset" value="Cancel" >
+                <input required type="button" value="Add" id="add_teacher" id="search2" onclick="popdown('T_popup')">
+                <input required type="reset" value="Clear" >
             </form>
         </div>
-          
+
           <!-- techers table -->
         <table border="3" id="table2">
             <tr>
@@ -190,7 +195,7 @@
         <!-- student search -->
         <div class="data_control_center">
         <div id="search-form">
-            <input required type="search" id="search3" class ="search_box" name="search" placeholder="Search for names..">
+            <input required  type="search" id="search3" class ="search_box" name="search" placeholder="Search for names..">
             <button type="submit">Search</button>
         </div>
             <p class="add_button" onclick="popup('S_popup')">Add+</p>
@@ -209,13 +214,13 @@
                 <input required type="text" name="id" placeholder="S - ID" id="S_id">
 
                 <label for="name">Name : </label>
-                <input type="text" name="name" placeholder="Hasitha" id="S_name">
+                <input required type="text" name="name" placeholder="Hasitha" id="S_name">
     
                 <label for="city">City : </label>
-                <input type="text" name="city" placeholder="colombo" id="S_city">
+                <input required type="text" name="city" placeholder="colombo" id="S_city">
     
                 <label for="class">Class : </label>
-                <select name="class" id=" S_class">
+                <select required name="class" id="S_class">
                     <option value="12A"> 12 - A </option>
                     <option value="12B"> 12 - B </option>
                     <option value="12C"> 12 - C </option>
@@ -225,16 +230,17 @@
                 </select>
     
                 <label for="dob">Birth day : </label>
-                <input type="date" name="dob" id="S_dob">
+                <input required type="date" name="dob" id="S_dob">
     
                 <label for="tp">Tele : </label>
-                <input type="number" maxlength="10" placeholder="077xxxxxxx" id="S_tp">
+                <input required type="text" maxlength="10" placeholder="077xxxxxxx" id="S_tp">
     
-                <input type="submit" value="Add">
-                <input type="reset" value="Cancel">
+                <input required type="button" value="Add" id="add_student" onclick="popdown('S_popup')">
+                <input required type="reset" value="Clear">
             </form>
         </div>
        
+        <p id="f_p3">oo</p>
         <!-- student table -->
         <table border="3" id="table3">
             <tr>

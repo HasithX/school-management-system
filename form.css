@@ -56,6 +56,10 @@
 
 }
 
+.popup_form select{
+    overflow: scroll;
+}
+
 .close {
     color: #aaa;
     align-self: center;
