@@ -12,13 +12,6 @@ $(document).ready(function(){
     $("#table1").html(data);
     });
 
-    $.post("search.php",
-    {
-        teacher_name:""
-    },
-    function(data, status){
-    $("#table2").html(data);
-    });
 
     $.post("search.php",
     {
