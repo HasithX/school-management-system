@@ -97,7 +97,7 @@
                 
                 </select>
     
-                <input required type="button" class="submit" value="edit" id="edit_timetable">
+                <input required type="button" value="edit" id="edit_timetable" onclick="popdown('tt_popup')">
                 <input required type="reset" value="Clear">
             </form>
         </div>
@@ -140,7 +140,7 @@
             <form id="T_form">
                 <div class="form_head">
                     <span class="close" onclick="popdown('T_popup')">×</span>
-                    <h2>Teacher deta..</h2>
+                    <h2>Teacher data..</h2>
                 </div>
                 <p name="TT_id" id="TT_id" TTid=""></p>
                 
@@ -167,7 +167,7 @@
                 <label for="tp">Tele : </label>
                 <input required type="text" name="tp" maxlength="12" placeholder="077xxxxxxx" id="T_tp">
     
-                <input required type="button" class="submit" value="" id="" id="search2" onclick="popdown('T_popup')">
+                <input required type="button" value="" id="" id="search2" onclick="popdown('T_popup')">
                 <input required type="reset" value="Clear" >
             </form>
         </div>
@@ -206,7 +206,7 @@
             <form id="S_form">
                 <div class="form_head">
                     <span class="close" onclick="popdown('S_popup')" id="S_close">×</span>
-                    <h2>Student deta..</h2>
+                    <h2>Student data..</h2>
                 </div>
                 <p name="ss_id" id="ss_id" ssid=""></p>
 
@@ -235,7 +235,7 @@
                 <label for="tp">Tele : </label>
                 <input required type="text" maxlength="12" placeholder="077xxxxxxx" id="S_tp">
     
-                <input required type="button" class="submit" value="" id="" onclick="popdown('S_popup')">
+                <input required type="button" value="" id="" onclick="popdown('S_popup')">
                 <input required type="reset" value="Clear">
             </form>
         </div>
@@ -256,7 +256,7 @@
 
 
     <footer>
-            <h3>power by: </h3>
+            <h3>power by : </h3>
             <a href="https://github.com/HasithX" target="_blank" >
                 <i class="fa fa-github"></i>
                 <p>Hasitha Eranga..</p>

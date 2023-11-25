@@ -421,6 +421,7 @@ function editTimetable(){
 }
 
 function edtTeacher(){
+    // echo "it is work";
     $conn = dbconection();
 
     $id = $_POST['id'];
@@ -429,7 +430,7 @@ function edtTeacher(){
     $subject = $_POST['subject'];
     $dob = $_POST['dob'];
 
-    $sql = "UPDATE `teachers` SET `name`='$name',`dob`='$dob',`subject`='$subject',`tele`='$tele' WHERE T_ID = $id ;";
+    $sql = "UPDATE `teachers` SET `name`='$name',`dob`='$dob',`subject`='$subject',`tele`='$tele' WHERE `T_ID` = $id ;";
 
     $result = $conn->query($sql);
 
@@ -441,6 +442,7 @@ function edtTeacher(){
 }
 
 function editStudent(){
+    // echo "it is work";
     $conn = dbconection();
 
     $S_id = $_POST['S_id'];
@@ -551,11 +553,11 @@ if (isset($_POST['gae_student_detais'])) {
     get_edit_student();
 }
 
-if (isset($_POST['edt_timetable'])) {
+if (isset($_POST['edit_timetable'])) {
     editTimetable();
 }
 
-if (isset($_POST['edt_teacher'])) {
+if (isset($_POST['edit_teacher'])) {
     edtTeacher();
 }
 

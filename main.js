@@ -304,10 +304,10 @@ $(document).on('click', '.student_row_edit', function() {
 
 //edit data
 
-$(document).on('click', '#edit_timetable', function(){
+$(document).on('click','#edit_timetable', function(){
     $.post("search.php",
     {
-        add_timetable : "",
+        edit_timetable : "",
         tt_id :  $("#tt_id").attr('ttid').val(),
         tt_date : $("#tt_date").val(),
         tt_period : $("#tt_period").val(),
@@ -322,10 +322,10 @@ $(document).on('click', '#edit_timetable', function(){
 
 });
 
-$(document).on('click', '#edit_T', function(){
+$(document).on('click','#edit_T', function(){
     $.post("search.php",
     {
-        edt_teacher : "",
+        edit_teacher : "",
         id :  $("#TT_id").attr('TTid').val(),
         name : $("#T_name").val(),
         tp : $("#T_tp").val(),
@@ -339,10 +339,10 @@ $(document).on('click', '#edit_T', function(){
 
 });
 
-$(document).on('click', '#edit_S', function(){
+$(document).on('click','#edit_S', function(){
     $.post("search.php",
     {
-        add_student : "",
+        edit_student : "",
         S_id :  $("#ss_id").attr('ssid').val(),
         S_name : $("#S_name").val(),
         S_tp : $("#S_tp").val(),

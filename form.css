@@ -34,7 +34,7 @@
     border: 1px solid #cccccc;
 }
 
-.popup_form input[type="submit"], input[type="reset"] {
+.popup_form input[type="button"], input[type="reset"] {
     width: 45%;
     padding: 10px;
     border-radius: 5px;
@@ -42,7 +42,7 @@
     color: #ffffff;
 }
 
-.popup_form input[type="submit"] {
+.popup_form input[type="button"] {
     background-color: #28a745;
 }
 
