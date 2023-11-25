@@ -5,10 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>School Management System</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="form.css">
-    <link rel="stylesheet" href="awsome.css">
-    <script src="jquery-3.7.1.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="ajax.js"></script>
     <script src="main.js"></script>
    
@@ -19,7 +15,7 @@
     </style>
 </head>
 <body>
-    <nav>
+    <nav id="navbar">
         <i><h1>school Management System..</h1></i>
         <ul id="navbar-ul">
             <a href="#timetable"><li>Time Table</li></a>
@@ -50,6 +46,7 @@
                     <span class="close" onclick="popdown('tt_popup')">×</span>
                     <h2>Time table..</h2>
                 </div>
+                <p name="tt_id" id="tt_id" ttid=""></p>
     
                 <label for="date">Date : </label>
                 <select required name="date" id="tt_date">
@@ -74,8 +71,8 @@
     
                 <label for="subject">subject : </label>
                 <select required name="subject" id="tt_subject">
-                    <option value="sub1"> ET </option>
-                    <option value="sub2"> SFT </option>
+                    <option value="sub1"> SFT </option>
+                    <option value="sub2"> ET </option>
                     <option value="sub3"> ICT </option>
                     <option value="sub4"> BST </option>
                     <option value="sub5"> AGRY </option>
@@ -100,7 +97,7 @@
                 
                 </select>
     
-                <input required type="button" value="Add" id="add_timetable">
+                <input required type="button" class="submit" value="edit" id="edit_timetable">
                 <input required type="reset" value="Clear">
             </form>
         </div>
@@ -135,16 +132,17 @@
                  placeholder="Searchs..">
                  <button type="button">Search</button>
             </div>
-            <p class="add_button" onclick="popup('T_popup')">Add+</p>
+            <p class="add_button" onclick="popup('T_popup')" id="T_add_button">Add+</p>
           </div>
 
           <!-- techers form -->
           <div class="popup_form" id="T_popup">
-            <form>
+            <form id="T_form">
                 <div class="form_head">
                     <span class="close" onclick="popdown('T_popup')">×</span>
-                    <h2>Teacher deta..</h2>p
+                    <h2>Teacher deta..</h2>
                 </div>
+                <p name="TT_id" id="TT_id" TTid=""></p>
                 
                 <label for="id">ID : </label>
                 <input required type="text" name="id" placeholder="T - ID" id="T_id">
@@ -155,8 +153,8 @@
     
                 <label for="subject">subject : </label>
                 <select required name="subject" id="T_subject">
-                    <option value="sub1"> ET </option>
-                    <option value="sub2"> SFT </option>
+                    <option value="sub1"> SFT </option>
+                    <option value="sub2"> ET </option>
                     <option value="sub3"> ICT </option>
                     <option value="sub4"> BST </option>
                     <option value="sub5"> AGRY </option>
@@ -167,13 +165,14 @@
                 <input required type="date" name="dob" id="T_dob">
     
                 <label for="tp">Tele : </label>
-                <input required type="text" name="tp" maxlength="10" placeholder="077xxxxxxx" id="T_tp">
+                <input required type="text" name="tp" maxlength="12" placeholder="077xxxxxxx" id="T_tp">
     
-                <input required type="button" value="Add" id="add_teacher" id="search2" onclick="popdown('T_popup')">
+                <input required type="button" class="submit" value="" id="" id="search2" onclick="popdown('T_popup')">
                 <input required type="reset" value="Clear" >
             </form>
         </div>
 
+        <p id="f_p2"></p>
           <!-- techers table -->
         <table border="3" id="table2">
             <tr>
@@ -198,17 +197,18 @@
             <input required  type="search" id="search3" class ="search_box" name="search" placeholder="Search for names..">
             <button type="submit">Search</button>
         </div>
-            <p class="add_button" onclick="popup('S_popup')">Add+</p>
+            <p class="add_button" onclick="popup('S_popup')" id="S_add_button">Add+</p>
           </div>
 
           <!-- student form -->
 
           <div class="popup_form" id="S_popup">
-            <form >
+            <form id="S_form">
                 <div class="form_head">
-                    <span class="close" onclick="popdown('S_popup')">×</span>
+                    <span class="close" onclick="popdown('S_popup')" id="S_close">×</span>
                     <h2>Student deta..</h2>
                 </div>
+                <p name="ss_id" id="ss_id" ssid=""></p>
 
                 <label for="id">ID : </label>
                 <input required type="text" name="id" placeholder="S - ID" id="S_id">
@@ -233,14 +233,14 @@
                 <input required type="date" name="dob" id="S_dob">
     
                 <label for="tp">Tele : </label>
-                <input required type="text" maxlength="10" placeholder="077xxxxxxx" id="S_tp">
+                <input required type="text" maxlength="12" placeholder="077xxxxxxx" id="S_tp">
     
-                <input required type="button" value="Add" id="add_student" onclick="popdown('S_popup')">
+                <input required type="button" class="submit" value="" id="" onclick="popdown('S_popup')">
                 <input required type="reset" value="Clear">
             </form>
         </div>
        
-        <p id="f_p3">oo</p>
+        <p id="f_p3"></p>
         <!-- student table -->
         <table border="3" id="table3">
             <tr>
@@ -255,6 +255,13 @@
     </section>
 
 
-    <footer></footer>
+    <footer>
+            <h3>power by: </h3>
+            <a href="https://github.com/HasithX" target="_blank" >
+                <i class="fa fa-github"></i>
+                <p>Hasitha Eranga..</p>
+            </a>
+            
+    </footer>
 </body>
 </html>

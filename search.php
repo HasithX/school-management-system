@@ -56,7 +56,7 @@ function checkPeriod() {
 
 
 //-----------------------get data----------------------\\
-function getTimetable(){
+function getTimetable($search){
     
     $conn = dbconection();
 
@@ -68,12 +68,7 @@ function getTimetable(){
     echo "<th>Subject</th>";
     echo "<th>Teacher</th>";
     echo "<th class='data_edit_colum'></th>";
-    echo "<th class='data_edit_colum'></th>";
     echo "</tr>";
-
-    if (isset($_POST["timetable_name"])) {
-
-        $search = $_POST["timetable_name"];
 
         if ($search ==! ''){
           $sql = "SELECT timetable.time_table_id, 
@@ -87,8 +82,8 @@ function getTimetable(){
                 INNER JOIN subject ON timetable.subject = subject.sub_id
                 INNER JOIN teachers on timetable.teacher = teachers.T_ID
                 WHERE timetable.class LIKE '%$search%'
-                ORDER BY timetable.class
-                LIMIT 10;";
+                ORDER BY timetable.date, 
+                timetable.time, class.name;";
         }  else {
             $day = date('w');
             $period = checkPeriod();
@@ -125,14 +120,12 @@ function getTimetable(){
                 echo "<td >".$row['class']."</td>";
                 echo "<td >".$row['subject']."</td>";
                 echo "<td >".$row['teacher']."</td>";
-                echo "<td >"."<i class='fa fa-edit'></i>"."</td>";
-                echo "<td >"."<i class='fa fa-trash' style='color:red;'></i>"."</td>";
+                echo "<td >"."<i class='fa fa-edit timetable_row_edit' id='{$row['time_table_id']}'></i>"."</td>";
                 echo "</tr>";
                 }           
             }  else{
-                echo "<tr>"."<td colspan = '8'>". "no data found". "</td>". "</tr>";
+                echo "<tr>"."<td colspan = '7'>". "no data found". "</td>". "</tr>";
                 };        
-        };
     $conn-> close();
 };
 
@@ -154,8 +147,7 @@ function get_teachers_list(){
 
 // teachers data
 
-
-function getTeacheres(){
+function getTeacheres($search){
 
     $conn = dbconection();
         
@@ -169,9 +161,7 @@ function getTeacheres(){
         echo "<th class='data_edit_colum'></th>";
         echo "</tr>";
 
-    if (isset($_POST["teacher_name"])) {
-
-        $search = $_POST["teacher_name"];
+    //     $search = $_POST["teacher_name"];
 
         if ($search ==! ''){
 
@@ -197,22 +187,20 @@ function getTeacheres(){
                echo "<td >".$row['subject']."</td>";
                echo "<td >".$row['DOB']."</td>";
                echo "<td >".$row['Tele']."</td>";
-               echo "<td >"."<i class='fa fa-edit'></i>"."</td>";
-               echo "<td >"."<i class='fa fa-trash' style='color:red;'></i>"."</td>";
+               echo "<td >"."<i class='fa fa-edit teacher_row_edit' id='{$row['T_ID']}'></i>"."</td>";
+               echo "<td >"."<i class='fa fa-trash teacher_row_delete'  style='color:red;' id='{$row['T_ID']}' ></i>"."</td>";
                echo "</tr>";
-            }
-            
+            }       
 
         }  else{
-            echo "<tr>"."<td colspan = '5'>". "no data found". "</td>". "</tr>";
+            echo "<tr>"."<td colspan = '7'>". "no data found". "</td>". "</tr>";
             };
-   };
-$conn-> close();
+    $conn-> close();
 };
 
 //student data
 
-function getStudent(){
+function getStudent($search){
 
     $conn = dbconection();
         
@@ -226,10 +214,6 @@ function getStudent(){
         echo "<th class='data_edit_colum'></th>";
         echo "<th class='data_edit_colum'></th>";
         echo "</tr>";
-
-    if (isset($_POST["student_name"])) {
-
-        $search = $_POST["student_name"];
 
         if ($search ==! ''){
 
@@ -271,8 +255,8 @@ function getStudent(){
                echo "<td >".$row['City']."</td>";
                echo "<td >".$row['DOB']."</td>";
                echo "<td >".$row['Tele']."</td>";
-               echo "<td >"."<i class='fa fa-edit'></i>"."</td>";
-               echo "<td >"."<i class='fa fa-trash' style='color:red;'></i>"."</td>";
+               echo "<td >"."<i class='fa fa-edit student_row_edit' id='{$row['S_ID']}'></i>"."</td>";
+               echo "<td >"."<i class='fa fa-trash student_row_delete'  style='color:red;' id='{$row['S_ID']}' ></i>"."</td>";
                echo "</tr>";
             }
             
@@ -280,35 +264,13 @@ function getStudent(){
         }  else{
             echo "<tr>"."<td colspan = '8'>". "no data found". "</td>". "</tr>";
             };
-   };
-$conn-> close();
+    $conn-> close();
 };
 
 
 //------------------------------add data here------------------------\\
 
-function addtimetable(){
 
-    $conn = dbconection();
-
-    $tt_date = $_POST['tt_date'];
-    $tt_period = $_POST['tt_period'];
-    $tt_subject = $_POST['tt_subject'];
-    $tt_class = $_POST['tt_class'];
-    $tt_teachers = $_POST['tt_teachers'];
-    
-    $sql = "INSERT INTO `timetable`(`class`, `date`, `subject`, `teacher`, `time`) 
-    VALUES ('tt_class', 'tt_date', 'tt_subject', 'tt_teachers', 'tt_period');";
-    
-    $result = $conn -> query($sql);
-
-    if ($result ==! TRUE)  {
-        echo "Update failed: ". $conn -> error;
-    } 
-    
-    $conn -> close();
-
-};
 
 function addteacher(){
 
@@ -330,6 +292,7 @@ function addteacher(){
     } 
     
     $conn -> close();
+    getTeacheres("");
 
 };
 
@@ -355,21 +318,201 @@ function addstudent(){
     } 
     
     $conn -> close();
+    getStudent("");
 };
 
+//------------------------------edit data here------------------------\\
 
+function get_edit_timetable(){
+    $conn = dbconection();
+
+    $id = $_POST['get_timetable_details'];
+
+    $sql = "SELECT * FROM timetable WHERE time_table_id = ?";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $id);
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+
+        $json = json_encode($row);
+        error_log($json);
+        echo $json;
+    } else {
+        echo 'No data found';
+    }
+
+    $stmt->close();
+}
+
+function get_edit_teacher(){
+    $conn = dbconection();
+
+    $id = $_POST['get_teacher_details'];
+
+    $sql = "SELECT * FROM teachers WHERE T_ID = ?";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $id);
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+
+        $json = json_encode($row);
+        error_log($json);
+        echo $json;
+    } else {
+        echo 'No data found';
+    }
+
+    $stmt->close();
+}
+
+function get_edit_student(){
+    $conn = dbconection();
+
+    $id = $_POST['gae_student_detais'];
+
+    $sql = "SELECT * FROM students WHERE S_ID = ?";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $id);
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+
+        $json = json_encode($row);
+        error_log($json);
+        echo $json;
+    } else {
+        echo 'No data found';
+    }
+
+    $stmt->close();
+}
+
+function editTimetable(){
+    $conn = dbconection();
+
+    $tt_id = $_POST['tt_id'];
+    $tt_date = $_POST['tt_date'];  
+    $tt_period = $_POST['tt_period'];
+    $tt_subject = $_POST['tt_subject'];
+    $tt_class = $_POST['tt_class'];
+    $tt_teachers = $_POST['tt_teachers'];
+
+    $sql = "UPDATE `timetable` SET `class`='$tt_class',
+    `date`='$tt_date',`subject`='$tt_subject',`teacher`='$tt_teachers',`time`='$tt_period' WHERE `time_table_id`= $tt_id ;";
+
+    $result = $conn->query($sql);
+
+    if ($result ==! TRUE) {
+        echo "update faild : ". $conn-> error;
+    }
+    $conn -> close();
+    getTimetable("");
+}
+
+function edtTeacher(){
+    $conn = dbconection();
+
+    $id = $_POST['id'];
+    $name = $_POST['name'];
+    $tele = $_POST['tp'];
+    $subject = $_POST['subject'];
+    $dob = $_POST['dob'];
+
+    $sql = "UPDATE `teachers` SET `name`='$name',`dob`='$dob',`subject`='$subject',`tele`='$tele' WHERE T_ID = $id ;";
+
+    $result = $conn->query($sql);
+
+    if ($result ==! TRUE) {
+        echo "update faild : ". $conn-> error;
+    }
+    $conn -> close();
+    getTeacheres("");
+}
+
+function editStudent(){
+    $conn = dbconection();
+
+    $S_id = $_POST['S_id'];
+    $S_name = $_POST['S_name'];  
+    $S_tp = $_POST['S_tp'];
+    $S_class = $_POST['S_class'];
+    $S_dob = $_POST['S_dob'];
+    $S_city = $_POST['S_city'];
+
+    $sql = "UPDATE `students` SET `Name`= $S_name ,`DOB`= $S_dob,`City`= $S_city,`class`= $S_class,`Tele`= $S_tp WHERE `S_ID` = $id ;";
+    $result = $conn->query($sql);
+
+    if ($result ==! TRUE) {
+        echo "update faild : ". $conn-> error;
+    }
+    $conn -> close();
+    getStudent("");
+}
+
+//------------------------------delete data here------------------------\\
+function deleteteacher() {
+
+    // $delete_teacher = $_POST['delete_teacher'];
+    // echo '<p>'."it is work". $delete_teacher.'</P>';
+
+    $conn = dbconection();
+
+    $delete_teacher = $_POST['delete_teacher'];
+
+    $sql = "DELETE FROM teachers WHERE T_ID = ?";
+    
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $delete_teacher);
+    $stmt->execute();
+
+    if ($stmt->affected_rows < 0) {
+        echo "Error deleting record: " . $conn->error;
+    }
+
+    $stmt->close();
+}
+
+function deletestudent() {
+
+    $conn = dbconection();
+
+    $delete_student = $_POST['delete_student'];
+
+    $sql = "DELETE FROM students WHERE S_ID = ?";
+    
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $delete_student);
+    $stmt->execute();
+
+    if ($stmt->affected_rows < 0) {
+        echo "Error deleting record: " . $conn->error;
+    }
+
+    $stmt->close();
+}
 
 
 if (isset($_POST['timetable_name'])) {
-    getTimetable();
+    getTimetable($_POST["timetable_name"]);
 }
 
 if (isset($_POST['teacher_name'])) {
-    getTeacheres();
+    getTeacheres($_POST["teacher_name"]);
 }
 
 if (isset($_POST['student_name'])) {
-    getStudent();
+    getStudent($_POST["student_name"]);
 }
 
 if (isset($_POST['add_teacher'])) {
@@ -388,6 +531,36 @@ if (isset($_POST['get_teachers_list'])) {
     get_teachers_list();
 }
 
+if (isset($_POST['delete_teacher'])) {
+    deleteteacher();
+}
 
+if (isset($_POST['delete_student'])) {
+    deletestudent();
+}
+
+if (isset($_POST['get_teacher_details'])) {
+    get_edit_teacher();
+}
+
+if (isset($_POST['get_timetable_details'])) {
+    get_edit_timetable();
+}
+
+if (isset($_POST['gae_student_detais'])) {
+    get_edit_student();
+}
+
+if (isset($_POST['edt_timetable'])) {
+    editTimetable();
+}
+
+if (isset($_POST['edt_teacher'])) {
+    edtTeacher();
+}
+
+if (isset($_POST['edit_student'])) {
+    editStudent();
+}
 
 ?>
